@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import 'modern-normalize';
-import { App } from './App/App.jsx';
-import './index.module.css';
+import App from './components/App/App.jsx';
+import css from './index.module.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>

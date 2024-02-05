@@ -4,6 +4,8 @@
   font-weight: 400;
 
   color-scheme: light dark;
+  /* color: rgba(255, 255, 255, 0.87);
+  background-color: #242424; */
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -14,13 +16,6 @@
 body {
   font-family: sans-serif;
   line-height: 1.5;
-  margin: 0 auto;
-  padding: 50px;
-
-  background-color: rgb(253, 255, 255);
-  /* background: linear-gradient(-50deg, #ffffff, #d7d8d9, #c9c9c8, #fdf7da52); */
-  /* background: linear-gradient(-50deg, #d1520e, #0d4b97, #0d98be, #1c0dbe52); */
-  background-attachment: fixed;
 }
 
 h1,

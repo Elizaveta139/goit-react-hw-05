@@ -1,12 +1,29 @@
+import { useState, useEffect } from 'react';
+import { fetchTrending } from '../Api';
+import MoviesList from '../components/MoviesList/MoviesList';
+
 export default function Home() {
+  const [movies, setMovies] = useState([]);
+
+  useEffect(() => {
+    async function componentUpdate() {
+      try {
+        const fetchedData = await fetchTrending();
+        setMovies(fetchedData.results);
+      } catch (error) {
+        console.error(error);
+      }
+      //   fetchTrending()
+      //     .then(({ response }) => setMovies(response))
+      //     .catch(err => console.error(err));
+    }
+    componentUpdate();
+  }, []);
+
   return (
-    <main>
-      <h1>Welcome</h1>
-      <img src="https://via.placeholder.com/960x240" alt="" />
-      <p>
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iusto, laboriosam placeat incidunt
-        rem illum animi nemo quibusdam quia voluptatum voluptate.
-      </p>
-    </main>
+    <>
+      <h1>Trending today</h1>
+      <MoviesList movies={movies} />
+    </>
   );
 }

@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, Outlet } from 'react-router-dom';
 import clsx from 'clsx';
 import css from './AppBar.module.css';
 
@@ -24,6 +24,7 @@ export default function AppBar() {
           Movies
         </NavLink>
       </nav>
+      <Outlet />
     </header>
   );
 }

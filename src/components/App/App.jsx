@@ -1,12 +1,15 @@
-import { useState, useEffect } from 'react';
-import { Routes, Route, NavLink } from 'react-router-dom';
-import clsx from 'clsx';
+import { Suspense, lazy } from 'react';
+import { Routes, Route } from 'react-router-dom';
 import AppBar from '../AppBar/AppBar';
-import Home from '../../pages/Home';
-import MoviesPage from '../../pages/MoviesPage/MoviesPage';
 import NotFound from '../../pages/NotFound';
 
 import css from './App.module.css';
+
+const Home = lazy(() => import('../../pages/HomePage'));
+const MoviesPage = lazy(() => import('../../pages/MoviesPage/MoviesPage'));
+const MovieDetailsPage = lazy(() => import('../../pages/MovieDetailsPage/MovieDetailsPage'));
+const MovieCast = lazy(() => import('../../components/MovieCast/MovieCast'));
+const MovieReviews = lazy(() => import('../../components/MovieReviews/MovieReviews'));
 
 export default function App() {
   return (
@@ -14,11 +17,17 @@ export default function App() {
       <div className={css.container}>
         <AppBar />
 
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/movies" element={<MoviesPage />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+        <Suspense fallback={<div>Loading page...</div>}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/movies" element={<MoviesPage />} />
+            <Route path="movies/:movieId" element={<MovieDetailsPage />}>
+              <Route path="cast" element={<MovieCast />} />
+              <Route path="reviews" element={<MovieReviews />} />
+            </Route>
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </Suspense>
       </div>
     </>
   );

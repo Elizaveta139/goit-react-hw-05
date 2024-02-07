@@ -2,6 +2,10 @@ import { useState, useEffect, Suspense } from 'react';
 import { useParams, useLocation, Link, Outlet } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink/BackLink';
 import { fetchMovieDetails } from '../../Api';
+import css from './MovieDetailsPage.module.css';
+
+const defaultImg =
+  'https://st2.depositphotos.com/2498595/6610/v/600/depositphotos_66109523-stock-illustration-blank-photo-outline-symbol-dark.jpg';
 
 export default function MovieDetailsPage() {
   const [moviesDetails, setMoviesDetails] = useState({});
@@ -29,31 +33,46 @@ export default function MovieDetailsPage() {
   return (
     <div>
       <BackLink to={backLinkHref}>Back to movies</BackLink>
-      <div>
-        <img src={`https://image.tmdb.org/t/p/w300/${poster_path}`} alt={title} />
-      </div>
-      <div>
-        {' '}
-        {title && (
-          <h2>
-            {title} ({release_date.slice(0, 4)})
-          </h2>
-        )}
-        <p>{Math.round(vote_average * 10)}%</p>
-        <h3>Overview</h3>
-        <p>{overview}</p>
-        <h3>Genres</h3>
-        {genres && <p>{genres.map(({ name }) => name).join(', ')}</p>}
+      <div className={css.wrap}>
+        <div>
+          {poster_path ? (
+            <img
+              src={`https://image.tmdb.org/t/p/w300/${poster_path}`}
+              alt={title}
+              width="300"
+              height="400"
+            />
+          ) : (
+            <img src={defaultImg} alt={title} width="300" height="400" />
+          )}
+        </div>
+        <div>
+          {' '}
+          {title && (
+            <h2 className={css.title}>
+              {title} ({release_date.slice(0, 4)})
+            </h2>
+          )}
+          <p className={css.text}> User Score: {Math.round(vote_average * 10)}%</p>
+          <h3>Overview</h3>
+          <p className={css.text}>{overview}</p>
+          <h3>Genres</h3>
+          {genres && <p className={css.text}>{genres.map(({ name }) => name).join(', ')}</p>}
+        </div>
       </div>
 
       <div>
-        <h3>Additional information</h3>
-        <ul>
+        <h3 className={css.titleInfo}>Additional information</h3>
+        <ul className={css.info}>
           <li>
-            <Link to="cast">Cast</Link>
+            <Link to="cast" className={css.active}>
+              Cast
+            </Link>
           </li>
           <li>
-            <Link to="reviews">Reviews</Link>
+            <Link to="reviews" className={css.active}>
+              Reviews
+            </Link>
           </li>
         </ul>
       </div>

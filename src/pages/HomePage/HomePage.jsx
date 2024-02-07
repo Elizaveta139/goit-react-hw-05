@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
-import { fetchTrending } from '../Api';
-import MoviesList from '../components/MoviesList/MoviesList';
+import { fetchTrending } from '../../Api';
+import MoviesList from '../../components/MoviesList/MoviesList';
+import css from './HomePage.module.css';
 
 export default function Home() {
   const [movies, setMovies] = useState([]);
@@ -22,7 +23,7 @@ export default function Home() {
 
   return (
     <>
-      <h1>Trending today</h1>
+      <h1 className={css.title}>Trending today</h1>
       <MoviesList movies={movies} />
     </>
   );

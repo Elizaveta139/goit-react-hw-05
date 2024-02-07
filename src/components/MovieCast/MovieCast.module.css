@@ -1,5 +1,18 @@
 .list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: center;
 }
 
 .item {
+  width: 200px;
+  height: 100%;
+  text-align: center;
+}
+
+.info {
+  font-size: 18px;
+  margin-top: 7px;
+  text-align: center;
 }

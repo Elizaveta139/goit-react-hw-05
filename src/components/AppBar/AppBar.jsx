@@ -1,4 +1,5 @@
 import { NavLink, Outlet } from 'react-router-dom';
+import { BiSolidCameraMovie } from 'react-icons/bi';
 import clsx from 'clsx';
 import css from './AppBar.module.css';
 
@@ -10,10 +11,7 @@ export default function AppBar() {
   return (
     <header className={css.header}>
       <p className={css.logo}>
-        <span role="img" aria-label="computer icon">
-          💻
-        </span>{' '}
-        Movie search
+        <BiSolidCameraMovie size="35" /> Movie search
       </p>
 
       <nav className={css.nav}>
@@ -24,6 +22,7 @@ export default function AppBar() {
           Movies
         </NavLink>
       </nav>
+
       <Outlet />
     </header>
   );

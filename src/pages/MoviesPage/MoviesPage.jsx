@@ -3,11 +3,16 @@ import { useState, useEffect } from 'react';
 import MoviesList from '../../components/MoviesList/MoviesList';
 import SearchBox from '../../components/SearchBox/SearchBox';
 import { fetchSearchMovies } from '../../Api';
+import Loader from '../../components/Loader/Loader';
+import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
+import NoMovies from '../../components/NoMovies/NoMovies';
 
 export default function MoviesPage() {
   // const receivedMovies = fetchSearchMovies();
   const [searchParams, setSearchParams] = useSearchParams();
   const [movies, setMovies] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
 
   const movieName = searchParams.get('query') ?? '';
 
@@ -25,19 +30,29 @@ export default function MoviesPage() {
 
     async function componentUpdate() {
       try {
+        setLoading(true);
+        setError(false);
+
         const fetchedData = await fetchSearchMovies(movieName);
         setMovies(fetchedData.results);
+        console.log('fetchedData.results', fetchedData.results);
       } catch (error) {
-        console.error(error);
+        setError(true);
+      } finally {
+        setLoading(false);
       }
     }
     componentUpdate();
   }, [movieName]);
 
+  console.log('movies', movies);
   return (
     <>
       <SearchBox value={movieName} onChange={updateQueryString} />
+      {movies.length === 0 && <NoMovies />}
       {movies.length > 0 && <MoviesList movies={movies} />}
+      {loading && <Loader onLoading={loading} />}
+      {error && <ErrorMessage />}
     </>
   );
 }

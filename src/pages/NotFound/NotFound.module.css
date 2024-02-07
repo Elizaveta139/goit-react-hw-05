@@ -1,0 +1,21 @@
+.active {
+  font-size: 20px;
+  padding: 8px 16px;
+  border-radius: 4px;
+  text-decoration: none;
+  color: black;
+  font-weight: 500;
+  border: 1px solid #000;
+}
+
+.active:hover {
+  color: white;
+  background-color: orangered;
+  border: none;
+}
+
+.notFound {
+  font-size: 20px;
+  padding-left: 16px;
+  margin-bottom: 30px;
+}

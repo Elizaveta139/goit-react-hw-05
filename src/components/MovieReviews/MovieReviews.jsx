@@ -1,10 +1,14 @@
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import Loader from '../Loader/Loader';
+import ErrorMessage from '../ErrorMessage/ErrorMessage';
 import { fetchMovieReviews } from '../../Api';
 import css from './MovieReviews.module.css';
 
 export default function MovieReviews() {
-  const [moviesReviews, setMovieReviews] = useState([]);
+  const [movieReviews, setMovieReviews] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
   const { movieId } = useParams();
 
   useEffect(() => {
@@ -12,10 +16,15 @@ export default function MovieReviews() {
 
     async function componentUpdate() {
       try {
+        setLoading(true);
+        setError(false);
+
         const fetchedData = await fetchMovieReviews(movieId);
         setMovieReviews(fetchedData.results);
       } catch (error) {
-        console.error(error);
+        setError(true);
+      } finally {
+        setLoading(false);
       }
     }
     componentUpdate();
@@ -23,9 +32,9 @@ export default function MovieReviews() {
 
   return (
     <section>
-      {moviesReviews.length > 0 ? (
+      {movieReviews.length > 0 ? (
         <ul className={css.list}>
-          {moviesReviews.map(({ id, author, content }) => {
+          {movieReviews.map(({ id, author, content }) => {
             return (
               <li key={id} className={css.item}>
                 <p className={css.author}>
@@ -40,6 +49,9 @@ export default function MovieReviews() {
       ) : (
         <p className={css.author}>We don`t have any review for this movie.</p>
       )}
+
+      {loading && <Loader onLoading={loading} />}
+      {error && <ErrorMessage />}
     </section>
   );
 }

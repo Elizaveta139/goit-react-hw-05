@@ -1,6 +1,10 @@
 import { useState, useEffect, Suspense } from 'react';
-import { useParams, useLocation, Link, Outlet } from 'react-router-dom';
+import { useParams, useLocation, NavLink, Outlet } from 'react-router-dom';
+import { FaArrowDown } from 'react-icons/fa';
+import clsx from 'clsx';
 import { BackLink } from '../../components/BackLink/BackLink';
+import Loader from '../../components/Loader/Loader';
+import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import { fetchMovieDetails } from '../../Api';
 import css from './MovieDetailsPage.module.css';
 
@@ -9,20 +13,31 @@ const defaultImg =
 
 export default function MovieDetailsPage() {
   const [moviesDetails, setMoviesDetails] = useState({});
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
   const { movieId } = useParams();
   const movie = fetchMovieDetails(movieId);
   const location = useLocation();
   const backLinkHref = location.state?.from ?? '/movies';
+
+  const buildLinkClass = ({ isActive }) => {
+    return clsx(css.link, isActive && css.active);
+  };
 
   useEffect(() => {
     if (!movieId) return;
 
     async function componentUpdate() {
       try {
+        setLoading(true);
+        setError(false);
+
         const fetchedData = await fetchMovieDetails(movieId);
         setMoviesDetails(fetchedData);
       } catch (error) {
-        console.error(error);
+        setError(true);
+      } finally {
+        setLoading(false);
       }
     }
     componentUpdate();
@@ -65,19 +80,22 @@ export default function MovieDetailsPage() {
         <h3 className={css.titleInfo}>Additional information</h3>
         <ul className={css.info}>
           <li>
-            <Link to="cast" className={css.active}>
-              Cast
-            </Link>
+            <NavLink to="cast" className={buildLinkClass}>
+              Cast <FaArrowDown className={css.icon} />
+            </NavLink>
           </li>
           <li>
-            <Link to="reviews" className={css.active}>
-              Reviews
-            </Link>
+            <NavLink to="reviews" className={buildLinkClass}>
+              Reviews <FaArrowDown className={css.icon} />
+            </NavLink>
           </li>
         </ul>
       </div>
 
-      <Suspense fallback={<div>Loading subpage...</div>}>
+      {loading && <Loader onLoading={loading} />}
+      {error && <ErrorMessage />}
+
+      <Suspense fallback={<Loader onLoading={loading} />}>
         <Outlet />
       </Suspense>
     </div>

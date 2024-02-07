@@ -1,7 +1,8 @@
 import { Suspense, lazy } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import AppBar from '../AppBar/AppBar';
-import NotFound from '../../pages/NotFound';
+import NotFound from '../../pages/NotFound/NotFound';
+import Loader from '../Loader/Loader';
 
 import css from './App.module.css';
 
@@ -17,7 +18,7 @@ export default function App() {
       <div className={css.container}>
         <AppBar />
 
-        <Suspense fallback={<div>Loading page...</div>}>
+        <Suspense fallback={<Loader onLoading={true} />}>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="movies" element={<MoviesPage />} />

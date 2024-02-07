@@ -26,16 +26,41 @@
   margin-bottom: 30px;
 }
 
-.active {
+.info li {
+  position: relative;
+}
+
+/* .active {
   font-size: 18px;
   padding: 8px 16px;
   border-radius: 4px;
   text-decoration: none;
   color: black;
   font-weight: 500;
+} */
+
+.link {
+  font-size: 20px;
+  font-weight: 500;
+  padding: 8px 16px;
+  border-radius: 4px;
+  text-decoration: none;
+  color: black;
 }
 
-.active:hover {
+.link:hover {
+  color: white;
+  min-width: 200px;
+  background-color: orangered;
+}
+
+.active {
   color: white;
   background-color: orangered;
 }
+
+/* .icon {
+  position: absolute;
+  top: 4px;
+  margin-left: 5px;
+} */

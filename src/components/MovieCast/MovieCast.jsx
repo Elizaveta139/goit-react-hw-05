@@ -1,5 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import Loader from '../Loader/Loader';
+import ErrorMessage from '../ErrorMessage/ErrorMessage';
 import { fetchMovieCast } from '../../Api';
 import css from './MovieCast.module.css';
 
@@ -7,7 +9,9 @@ const defaultImg =
   'https://st3.depositphotos.com/9998432/13335/v/600/depositphotos_133352158-stock-illustration-default-placeholder-profile-icon.jpg';
 
 export default function MovieCast() {
-  const [moviesCast, setMovieCast] = useState([]);
+  const [movieCast, setMovieCast] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
   const { movieId } = useParams();
 
   useEffect(() => {
@@ -15,10 +19,15 @@ export default function MovieCast() {
 
     async function componentUpdate() {
       try {
+        setLoading(true);
+        setError(false);
+
         const fetchedData = await fetchMovieCast(movieId);
         setMovieCast(fetchedData.cast);
       } catch (error) {
-        console.error(error);
+        setError(true);
+      } finally {
+        setLoading(false);
       }
     }
     componentUpdate();
@@ -26,9 +35,9 @@ export default function MovieCast() {
 
   return (
     <section>
-      {moviesCast.length > 0 ? (
+      {movieCast.length > 0 ? (
         <ul className={css.list}>
-          {moviesCast.map(({ id, name, character, profile_path }) => {
+          {movieCast.map(({ id, name, character, profile_path }) => {
             return (
               <li key={id} className={css.item}>
                 {profile_path ? (
@@ -50,6 +59,9 @@ export default function MovieCast() {
       ) : (
         <p className={css.info}>We don`t have any cast for this movie.</p>
       )}
+
+      {loading && <Loader onLoading={loading} />}
+      {error && <ErrorMessage />}
     </section>
   );
 }

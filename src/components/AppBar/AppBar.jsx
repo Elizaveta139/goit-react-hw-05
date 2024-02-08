@@ -11,7 +11,7 @@ export default function AppBar() {
   return (
     <header className={css.header}>
       <Link to="/" className={css.logo}>
-        <BiSolidCameraMovie size="35" /> Movie search
+        <BiSolidCameraMovie size="35" /> Film library
       </Link>
 
       <nav className={css.nav}>

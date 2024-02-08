@@ -15,8 +15,8 @@
   padding: 8px 32px 8px 8px;
   border-radius: 4px;
   font: inherit;
-  width: 500px;
-  height: 55px;
+  width: 450px;
+  height: 50px;
   /* position: fixed;
     right: 45%;
     z-index: 2; */
@@ -35,7 +35,7 @@
 .btnForm {
   position: absolute;
   right: 5px;
-  bottom: 9px;
+  bottom: 6px;
   cursor: pointer;
   display: block;
 

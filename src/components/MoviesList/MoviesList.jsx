@@ -17,11 +17,11 @@ export default function MoviesList({ movies }) {
                 <img
                   src={`https://image.tmdb.org/t/p/w200/${poster_path}`}
                   alt={title}
-                  width="300"
-                  height="400"
+                  width="200"
+                  height="300"
                 />
               ) : (
-                <img src={defaultImg} alt={title} width="300" height="400" />
+                <img src={defaultImg} alt={title} width="200" height="300" />
               )}
 
               <b className={css.name}>{title}</b>

@@ -54,11 +54,11 @@ export default function MovieDetailsPage() {
             <img
               src={`https://image.tmdb.org/t/p/w300/${poster_path}`}
               alt={title}
-              width="400"
-              height="500"
+              width="300"
+              height="400"
             />
           ) : (
-            <img src={defaultImg} alt={title} width="400" height="500" />
+            <img src={defaultImg} alt={title} width="300" height="400" />
           )}
         </div>
         <div>

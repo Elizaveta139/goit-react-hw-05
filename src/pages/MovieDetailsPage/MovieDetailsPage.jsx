@@ -71,8 +71,12 @@ export default function MovieDetailsPage() {
           <p className={css.text}> User Score: {Math.round(vote_average * 10)}%</p>
           <h3>Overview</h3>
           <p className={css.text}>{overview}</p>
-          <h3>Genres</h3>
-          {genres && <p className={css.text}>{genres.map(({ name }) => name).join(', ')}</p>}
+          {genres && (
+            <div>
+              <h3>Genres</h3>
+              <p className={css.text}>{genres.map(({ name }) => name).join(', ')}</p>
+            </div>
+          )}
         </div>
       </div>
 

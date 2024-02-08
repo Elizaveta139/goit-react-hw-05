@@ -35,7 +35,7 @@ export default function MovieCast() {
 
   return (
     <section>
-      {movieCast.length > 0 ? (
+      {movieCast.length > 0 && !loading && (
         <ul className={css.list}>
           {movieCast.map(({ id, name, character, profile_path }) => {
             return (
@@ -56,7 +56,9 @@ export default function MovieCast() {
             );
           })}
         </ul>
-      ) : (
+      )}
+
+      {movieCast.length === 0 && !loading && (
         <p className={css.info}>We don`t have any cast for this movie.</p>
       )}
 

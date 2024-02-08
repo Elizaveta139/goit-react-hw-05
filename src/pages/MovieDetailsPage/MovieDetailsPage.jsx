@@ -1,4 +1,4 @@
-import { useState, useEffect, Suspense } from 'react';
+import { useState, useEffect, Suspense, useRef } from 'react';
 import { useParams, useLocation, NavLink, Outlet } from 'react-router-dom';
 import { FaArrowDown } from 'react-icons/fa';
 import clsx from 'clsx';
@@ -18,7 +18,7 @@ export default function MovieDetailsPage() {
   const { movieId } = useParams();
   const movie = fetchMovieDetails(movieId);
   const location = useLocation();
-  const backLinkHref = location.state?.from ?? '/movies';
+  const backLinkHref = useRef(location.state?.from ?? '/movies');
 
   const buildLinkClass = ({ isActive }) => {
     return clsx(css.link, isActive && css.active);
@@ -47,18 +47,18 @@ export default function MovieDetailsPage() {
 
   return (
     <div>
-      <BackLink to={backLinkHref}>Back to movies</BackLink>
+      <BackLink to={backLinkHref.current}>Back to movies</BackLink>
       <div className={css.wrap}>
         <div>
           {poster_path ? (
             <img
               src={`https://image.tmdb.org/t/p/w300/${poster_path}`}
               alt={title}
-              width="300"
-              height="400"
+              width="400"
+              height="500"
             />
           ) : (
-            <img src={defaultImg} alt={title} width="300" height="400" />
+            <img src={defaultImg} alt={title} width="400" height="500" />
           )}
         </div>
         <div>

@@ -32,7 +32,7 @@ export default function MovieReviews() {
 
   return (
     <section>
-      {movieReviews.length > 0 ? (
+      {movieReviews.length > 0 && !loading && (
         <ul className={css.list}>
           {movieReviews.map(({ id, author, content }) => {
             return (
@@ -46,10 +46,10 @@ export default function MovieReviews() {
             );
           })}
         </ul>
-      ) : (
+      )}
+      {movieReviews.length === 0 && !loading && (
         <p className={css.author}>We don`t have any review for this movie.</p>
       )}
-
       {loading && <Loader onLoading={loading} />}
       {error && <ErrorMessage />}
     </section>

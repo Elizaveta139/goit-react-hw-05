@@ -15,9 +15,8 @@ const MovieReviews = lazy(() => import('../MovieReviews/MovieReviews'));
 export default function App() {
   return (
     <>
+      <AppBar />
       <div className={css.container}>
-        <AppBar />
-
         <Suspense fallback={<Loader onLoading={true} />}>
           <Routes>
             <Route path="/" element={<Home />} />

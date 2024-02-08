@@ -2,21 +2,25 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
   margin-bottom: 16px;
   text-transform: uppercase;
+  margin-bottom: 40px;
+}
+
+.form {
+  position: relative;
 }
 
 .input {
   padding: 8px 32px 8px 8px;
   border-radius: 4px;
   font: inherit;
-  width: 400px;
-  height: 45px;
+  width: 500px;
+  height: 55px;
   /* position: fixed;
     right: 45%;
     z-index: 2; */
-  font-size: 17px;
+  font-size: 20px;
   padding-left: 20px;
   border: 1px solid #000;
   border-radius: 7px;
@@ -24,10 +28,16 @@
     0px 2px 1px -1px rgba(0, 0, 0, 0.12);
 }
 
+.input::placeholder {
+  font-size: 20px;
+}
+
 .btnForm {
   position: absolute;
-  left: 65%;
+  right: 5px;
+  bottom: 9px;
   cursor: pointer;
+  display: block;
 
   padding-top: 10px;
   font-size: 17px;

@@ -9,8 +9,10 @@ import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 
 export default function MoviesPage() {
   // const receivedMovies = fetchSearchMovies();
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams({});
   const [movies, setMovies] = useState([]);
+  // const [totalMovies, setTotalMovies] = useState(null);
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
@@ -35,6 +37,8 @@ export default function MoviesPage() {
 
         const fetchedData = await fetchSearchMovies(movieName);
         setMovies(fetchedData.results);
+        // setTotalMovies(fetchedData.reresults.length);
+        console.log('fetchedData.results.length', fetchedData.reresults.length);
         console.log('fetchedData.results', fetchedData.results);
       } catch (error) {
         setError(true);
@@ -45,7 +49,6 @@ export default function MoviesPage() {
     componentUpdate();
   }, [movieName]);
 
-  console.log('movies', movies);
   return (
     <>
       <SearchBox value={movieName} onChange={updateQueryString} />

@@ -6,6 +6,7 @@
 
 .title {
   margin-bottom: 10px;
+  font-size: 28px;
 }
 
 .text {
@@ -16,7 +17,7 @@
 .titleInfo {
   text-align: center;
   margin-bottom: 10px;
-  font-size: 24px;
+  font-size: 28px;
 }
 
 .info {

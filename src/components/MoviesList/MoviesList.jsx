@@ -12,16 +12,16 @@ export default function MoviesList({ movies }) {
       {movies.map(({ id, title, poster_path }) => {
         return (
           <li key={id} className={css.item}>
-            <Link to={`${id}`} state={{ from: location }}>
+            <Link to={`/movies/${id}`} state={{ from: location }}>
               {poster_path ? (
                 <img
                   src={`https://image.tmdb.org/t/p/w200/${poster_path}`}
                   alt={title}
-                  width="200"
-                  height="300"
+                  width="300"
+                  height="400"
                 />
               ) : (
-                <img src={defaultImg} alt={title} width="200" height="300" />
+                <img src={defaultImg} alt={title} width="300" height="400" />
               )}
 
               <b className={css.name}>{title}</b>

@@ -1,4 +1,4 @@
-import { NavLink, Outlet } from 'react-router-dom';
+import { NavLink, Outlet, Link } from 'react-router-dom';
 import { BiSolidCameraMovie } from 'react-icons/bi';
 import clsx from 'clsx';
 import css from './AppBar.module.css';
@@ -10,9 +10,9 @@ const buildLinkClass = ({ isActive }) => {
 export default function AppBar() {
   return (
     <header className={css.header}>
-      <p className={css.logo}>
+      <Link to="/" className={css.logo}>
         <BiSolidCameraMovie size="35" /> Movie search
-      </p>
+      </Link>
 
       <nav className={css.nav}>
         <NavLink to="/" className={buildLinkClass}>

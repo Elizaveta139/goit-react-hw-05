@@ -1,8 +1,9 @@
 .link {
   display: flex;
+  align-items: center;
   gap: 10px;
-  width: 200px;
-  font-size: 18px;
+  width: 230px;
+  font-size: 20px;
   padding: 8px 16px;
   border-radius: 4px;
   text-decoration: none;

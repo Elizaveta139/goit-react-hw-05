@@ -1,17 +1,18 @@
 import { useSearchParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import { Toaster } from 'react-hot-toast';
 import MoviesList from '../../components/MoviesList/MoviesList';
 import SearchBox from '../../components/SearchBox/SearchBox';
 import { fetchSearchMovies } from '../../Api';
 import Loader from '../../components/Loader/Loader';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
-// import NoMovies from '../../components/NoMovies/NoMovies';
+import NoMovies from '../../components/NoMovies/NoMovies';
 
 export default function MoviesPage() {
   // const receivedMovies = fetchSearchMovies();
-  const [searchParams, setSearchParams] = useSearchParams({});
+  const [searchParams, setSearchParams] = useSearchParams();
   const [movies, setMovies] = useState([]);
-  // const [totalMovies, setTotalMovies] = useState(null);
+  const [totalMovies, setTotalMovies] = useState(null);
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
@@ -22,9 +23,13 @@ export default function MoviesPage() {
   //   movie.query.toLowerCase().includes(movieName.toLowerCase())
   // );
 
-  function updateQueryString(query) {
-    const nextParams = query !== '' ? { query } : {};
-    setSearchParams(nextParams);
+  // function updateQueryString(query) {
+  //   const nextParams = query !== '' ? { query } : {};
+  //   setSearchParams(nextParams);
+  // }
+
+  async function searchMovies(newQuery) {
+    setSearchParams({ query: newQuery });
   }
 
   useEffect(() => {
@@ -37,9 +42,7 @@ export default function MoviesPage() {
 
         const fetchedData = await fetchSearchMovies(movieName);
         setMovies(fetchedData.results);
-        // setTotalMovies(fetchedData.reresults.length);
-        console.log('fetchedData.results.length', fetchedData.reresults.length);
-        console.log('fetchedData.results', fetchedData.results);
+        setTotalMovies(fetchedData.results.length);
       } catch (error) {
         setError(true);
       } finally {
@@ -51,11 +54,13 @@ export default function MoviesPage() {
 
   return (
     <>
-      <SearchBox value={movieName} onChange={updateQueryString} />
-      {/* {movies.length === 0 && <NoMovies />} */}
+      <SearchBox onSearch={searchMovies} />
+      {totalMovies === 0 && <NoMovies />}
       {movies.length > 0 && <MoviesList movies={movies} />}
       {loading && <Loader onLoading={loading} />}
       {error && <ErrorMessage />}
+
+      <Toaster position="top-right" />
     </>
   );
 }

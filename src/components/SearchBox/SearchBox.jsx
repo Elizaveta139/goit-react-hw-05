@@ -7,6 +7,7 @@ export default function SearchBox({ value, onChange }) {
       <input
         className={css.input}
         type="text"
+        placeholder="Please enter the name of the movie"
         value={value}
         onChange={e => onChange(e.target.value)}
       />

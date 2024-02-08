@@ -5,7 +5,7 @@ import SearchBox from '../../components/SearchBox/SearchBox';
 import { fetchSearchMovies } from '../../Api';
 import Loader from '../../components/Loader/Loader';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
-import NoMovies from '../../components/NoMovies/NoMovies';
+// import NoMovies from '../../components/NoMovies/NoMovies';
 
 export default function MoviesPage() {
   // const receivedMovies = fetchSearchMovies();
@@ -49,7 +49,7 @@ export default function MoviesPage() {
   return (
     <>
       <SearchBox value={movieName} onChange={updateQueryString} />
-      {movies.length === 0 && <NoMovies />}
+      {/* {movies.length === 0 && <NoMovies />} */}
       {movies.length > 0 && <MoviesList movies={movies} />}
       {loading && <Loader onLoading={loading} />}
       {error && <ErrorMessage />}
